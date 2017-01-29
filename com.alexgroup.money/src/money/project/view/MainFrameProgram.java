@@ -23,16 +23,15 @@ public class MainFrameProgram  extends JFrame implements ActionListener {
 
     private Box verticalMainBox, horizontalTopBox, verticalMainButtonBox, verticalIformationBox, horizontalDataBox,
             horizontalProfitBox, horizontalExpensesBox, horizontalBalanceBox, horizontalReportBox, horizontal3ButtonBox,
-            horizontalGraphicBoxBut;
+            horizontalGraphicBoxBut, horizontalClearBox;
 
     public static JLabel textData, textDataV, textProfit, textProfitV, textExpenses, textExpensesV, textBallance, textBallanceV,
             textReport;
     public static JList northList;
 
-    private JButton butDebit, butCredit, butAllOperation, butExpenses, butProfit, butGraphic, butGraphic2;
+    private JButton butDebit, butCredit, butAllOperation, butExpenses, butProfit, butGraphic, butGraphic2, butClear;
 
     private JPanel mainPanel;
-    private JScrollPane scroll;
 
 
     public static ArrayList<String> data = new ArrayList<String>();
@@ -151,6 +150,11 @@ public class MainFrameProgram  extends JFrame implements ActionListener {
         northScroll.setPreferredSize(new Dimension(200, 200));
         mainPanel.add(northScroll);
 
+        horizontalClearBox = Box.createHorizontalBox();
+        butClear = new JButton(Constants.NAME_BUTTON_CLEAR);
+        butClear.addActionListener(this);
+        horizontalClearBox.add(butClear);
+
         verticalMainBox = Box.createVerticalBox();
         verticalMainBox.add(horizontalTopBox);
         verticalMainBox.add(horizontalReportBox);
@@ -161,6 +165,8 @@ public class MainFrameProgram  extends JFrame implements ActionListener {
         verticalMainBox.add(Box.createVerticalStrut(Constants.SIZE_MEJDY_PANNEL));
 
         verticalMainBox.add(mainPanel);
+        verticalMainBox.add(Box.createVerticalStrut(Constants.SIZE_MEJDY_PANNEL));
+        verticalMainBox.add(horizontalClearBox);
         verticalMainBox.add(Box.createVerticalStrut(Constants.SIZE_MEJDY_PANNEL));
 
         programFrame.setContentPane(verticalMainBox);
@@ -224,10 +230,27 @@ public class MainFrameProgram  extends JFrame implements ActionListener {
             GraphicFrame2.setLongX((Methods.newListDay.size() * 20) + 20 + 10);//обновили длииннуХ);
             GraphicFrame2.setHowMuchDay(Methods.newListDay.size());
             Methods.createGraficFrame2();
-
         }
 
+        if(actionCommand.equals(Constants.NAME_BUTTON_CLEAR)){
+
+            Methods.connectParametr = "clear";
+            Methods.Connection();
+            Methods.myListDay = new ArrayList<Day>();
+            Methods.connectParametr = "read";
+            Methods.Connection();
+            Methods.sortedMyListDay();
+            Methods.workList();
+
+            GraphicFrame2.yArrayMDebit = new int[Methods.newListDay.size()];
+            MainFrameProgram.getTextProfitV().setText("0");
+            MainFrameProgram.getTextExpensesV().setText("0");
+            MainFrameProgram.getTextBallanceV().setText("0");
+            data = new ArrayList<String>();
+            MainFrameProgram.northList.setListData(MainFrameProgram.data.toArray());
+        }
     }
+
 
     public static JLabel getTextProfitV() {
         return textProfitV;

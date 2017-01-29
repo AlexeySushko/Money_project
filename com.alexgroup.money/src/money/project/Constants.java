@@ -50,6 +50,7 @@ public class Constants {
     public static final String NAME_BUTTON_DEDUCT = "Затраты";
     public static final String NAME_BUTTON_GRAPHIC= "График балланса";
     public static final String NAME_BUTTON_GRAPHIC2= "График Прибыль/Расход";
+    public static final String NAME_BUTTON_CLEAR = "Очистить БД";
 
     //Размер окна программы
     public  static final int SIZE_PROGRAM_WINDOW_WIDTH = 450;

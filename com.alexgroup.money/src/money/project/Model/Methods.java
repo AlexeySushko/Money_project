@@ -78,6 +78,16 @@ public class Methods {
             stmt = conn.createStatement();
             String sql;
 
+            //Очистка с БД
+            if(connectParametr.equals("clear")){
+
+                sql = "TRUNCATE TABLE `costs`";
+                ResultSet rs = stmt.executeQuery(sql);
+
+                //STEP 6: Clean-up environment
+                rs.close();
+            }
+
             //Чтение с БД
             if(connectParametr.equals("read")){
 
@@ -390,6 +400,7 @@ public class Methods {
      * Этот и метод что бы уменьшить кол-во текста в функциях кнопок при обнулении
      */
     public static void nollMethod(){
+
         newListDayDebit = new ArrayList<Day>();//Что бы не дублировало значения
         newListDayCredit = new ArrayList<Day>();
         if(listForSum.size() != 0){
